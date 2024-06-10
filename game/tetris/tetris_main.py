@@ -3,7 +3,7 @@
 """
 Zachary Meisner
 
-tetrisMain.py
+tetris_main.py
 
 A manager file to initially load all game assets and manage whether or not
 the game begins or ends.  This is also where the primary game loop is held
