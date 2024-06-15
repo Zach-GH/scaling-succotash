@@ -5,9 +5,9 @@ This comment block normally would be at the top of the file
 but for the sake of having a shebang we make an acception
 because it is only neccesary to have one in the main file.
 
-Your Name - Zachary Meisner
+Your Name
 
-name of file - hello.py
+name of file
 
 Brief description of file -
 
@@ -20,7 +20,8 @@ commands detailed in the Makefile and run hello.py from your terminal.
 # import 1
 # import 2
 
-# A brief description of the function written below.  This function says Hello World!
+# A brief description of the function written below.
+# This function says Hello World!
 def say_hi():
     print("\n Hello World! \n")
 

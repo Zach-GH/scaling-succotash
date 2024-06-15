@@ -1,27 +1,46 @@
 #!/usr/bin/env python3
 
 """
-This comment block normally would be at the top of the file
-but for the sake of having a shebang we make an acception
-because it is only neccesary to have one in the main file.
+Zachary Meisner
+main.py
 
-Your Name - Zachary Meisner
-
-name of file - main.py
-
-Brief description of file -
-
-This file is used to give a template example for code contributions.
-To run this file, navigate to the template folder in your CLI interface
-and run the command `make project`.  This will run the corresponding
-commands detailed in the Makefile and run hello.py from your terminal.
+Provides a basic interface for players to interact with.
+Creates the initial pygame framework in which the screen and main game loop
+are established.  This interface will primarily interact with the settings.py
+file in addition to the trivial_compute.py file which will house core logic.
 """
 
-# import 1
-# import 2
+from settings import *
+import sys
 
-# A brief description of the function written below.  This function says Hello World!
-def say_hi():
-    print("\n Hello World! \n")
 
-say_hi()
+class App:
+    def __init__(self):
+        pg.init()
+        pg.display.set_caption('Byte-Builders Trivial Compute')
+        self.screen = pg.display.set_mode(FIELD_RES)
+        self.clock = pg.time.Clock()
+
+    def update(self):
+        self.clock.tick(FPS)
+
+    def draw(self):
+        self.screen.fill(color=FIELD_COLOR)
+        pg.display.flip()
+
+    def check_events(self):
+        for event in pg.event.get():
+            if (event.type == pg.QUIT
+                or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE)):
+                pg.quit()
+                sys.exit()
+
+    def run(self):
+        while True:
+            self.check_events()
+            self.update()
+            self.draw()
+
+if __name__ == '__main__':
+    app = App()
+    app.run()
