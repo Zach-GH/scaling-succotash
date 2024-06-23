@@ -1,43 +1,45 @@
 curr_dir= ../..
-tetris_dir= game/tetris
 tc_dir= game/trivial_compute
 
-# auto-install the neccesary packages
-setup_tetris: ${tetris_dir}/requirements.txt
-	pip install -r ${tetris_dir}/requirements.txt
+# auto-install the necessary packages
+setup_tc: ${tc_dir}/requirements.txt
+	pip install -r ${tc_dir}/requirements.txt
 
 # package all directory files for release
-release_tetris:
-	@cd ${tetris_dir}; \
+release_tc:
+	@cd ${tc_dir}; \
 	pyinstaller -F --noconsole --windowed \
-	tetris_main.py; \
+	main.py; \
 	mkdir -p ${curr_dir}/release; \
 	cp -rf assets ${curr_dir}/release/; \
-	mv dist/tetris_main ${curr_dir}/release/; \
-	cd ${curr_dir}; zip -r tetris.zip release/*; \
-	mv tetris.zip release
+	mv dist/main ${curr_dir}/release/; \
+	cd ${curr_dir}; zip -r tc.zip release/*; \
+	mv tc.zip release
 
 # run your release
-test_tetris:
-	@cd release; ./tetris_main
+test_tc:
+	@cd release; ./main
 
-# clean all unneeded files from your repository
-clean_tetris:
-	rm -rf ${tetris_dir}/__pycache__ \
-	${tetris_dir}/build ${tetris_dir}/dist \
-	${tetris_dir}/*.spec \
+# clean all un-needed files from your repository
+clean_tc:
+	rm -rf ${tc_dir}/__pycache__ \
+	${tc_dir}/build ${tc_dir}/dist \
+	${tc_dir}/*.spec \
 	release
 
-# run tetris
-tetris: tetris_main
-
-tetris_main: ${tetris_dir}/tetris_main.py
-	@cd ${tetris_dir}; \
-	./$@.py;
-
-# run trivial compute
+# run options for tetris and trivial compute
 run_tc: main
+run_tc_1440: main_1440
+run_tc_1080: main_1080
 
 main: ${tc_dir}/main.py
 	@cd ${tc_dir}; \
-	./$@.py;
+	./$@.py -r max -m full;
+
+main_1440: ${tc_dir}/main.py
+	@cd ${tc_dir}; \
+	./main.py -r med -m sized;
+
+main_1080: ${tc_dir}/main.py
+	@cd ${tc_dir}; \
+	./main.py -r min -m windowed;
