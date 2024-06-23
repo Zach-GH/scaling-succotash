@@ -1,7 +1,19 @@
-from settings import *
-import math
+"""
+Zachary Meisner
+menu.py
 
+Add module docstring here
+"""
+
+from settings import pg, ft, FONT_PATH, MENU_BG_PATH, BTN_W_LOC, BTN_W, BTN_H
+
+"""
+Add class docstring here.
+"""
 class Text:
+    """
+    Add function docstring here.
+    """
     def __init__(self, app, size, name, color):
         self.app = app
         self.size = size
@@ -12,31 +24,53 @@ class Text:
         self.center_x = (self.app.win_x - self.rect.width) / 2
         self.center_y = (self.app.win_y - self.rect.height) / 2
 
+    """
+    Add function docstring here.
+    """
     def render_text(self, x, y):
         self.font.render_to(self.app.win, (x, y),text=self.name,
                             fgcolor=self.color, size=self.size)
 
+
+"""
+Add class docstring here.
+"""
 class Button:
-    def __init__(self, app, color, pos, size, textColor, text=''):
+    """
+    Add function docstring here.
+    """
+    def __init__(self, app, color, pos, size, text_color, text=''):
         self.app = app
         self.color = color
         self.pos = pos[0], pos[1]
         self.size = size
         self.text = text
         self.font = pg.font.Font(pg.font.get_default_font(), size[1])
-        self.textArea = self.font.render(f"{text}", True, textColor)
+        self.text_area = self.font.render(f"{text}", True, text_color)
         self.area = pg.Surface((self.size[0], self.size[1]))
 
+    """
+    Add function docstring here.
+    """
     def render(self, win):
         win.blit(self.area, (self.pos[0], self.pos[1]))
-        win.blit(self.textArea, (self.pos[0]+1, self.pos[1]+5))
+        win.blit(self.text_area, (self.pos[0]+1, self.pos[1]+5))
         self.area.fill((self.color))
 
+    """
+    Add function docstring here.
+    """
     def draw(self, win):
         self.render(win)
 
 
+"""
+Add class docstring here.
+"""
 class Menu:
+    """
+    Add function docstring here.
+    """
     def __init__(self, app):
         self.app = app
         self.win = self.app.screen
@@ -48,7 +82,7 @@ class Menu:
         self.btn_list = [("b1", (255, 255, 0), 350, (0, 0, 0), 'Play'),
                     ("b2", (255, 0, 0), 350, (0, 0, 0), 'Options'),
                     ("b3", (255, 0, 0), 350, (0, 0, 0), 'Mute'),
-                    ("b4", (255, 0, 0), 350, (0, 0, 0), 'Dark'),
+                    ("b4", (255, 0, 0), 350, (0, 0, 0), 'Achievements'),
                     ("b5", (0, 255, 0), 350, (0, 0, 0), 'Credits'),
                     ("b6", (0, 255, 0), 350, (0, 0, 0), 'Quit')]
 
@@ -59,16 +93,26 @@ class Menu:
                                         i[2] + j), (BTN_W, BTN_H), i[3], i[4]))
             j += 75
 
+    """
+    Add function docstring here.
+    """
     def draw_menu(self):
         for i in self.btn_list:
             button = getattr(self, i[0])
             button.draw(self.win)
 
         self.title.render_text(self.title.center_x, 0)
-        self.team_name.render_text(self.title.center_x + 50, WIN_H * 0.14)
+        self.team_name.render_text(self.title.center_x * 2.1,
+                                   self.title.center_y * 2.1)
 
+    """
+    Add function docstring here.
+    """
     def update(self):
         pg.display.update()
 
+    """
+    Add function docstring here.
+    """
     def draw(self):
         self.draw_menu()
