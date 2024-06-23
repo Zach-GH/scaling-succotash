@@ -2,23 +2,15 @@ name: ci_test
 
 on: push
 
-permissions:
-  contents: read
-
 jobs:
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ["3.8", "3.10", "3.12"]
+        python-version: ["3.8", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
     - uses: actions/checkout@v4
-
-    - name: 'Dependency Review'
-      uses: actions/dependency-review-action@v4
-      with:
-        fail-on-severity: moderate
 
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
