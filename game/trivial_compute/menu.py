@@ -11,9 +11,6 @@ from settings import pg, ft, FONT_PATH, MENU_BG_PATH, BTN_W_LOC, BTN_W, BTN_H
 Add class docstring here.
 """
 class Text:
-    """
-    Add function docstring here.
-    """
     def __init__(self, app, size, name, color):
         self.app = app
         self.size = size
@@ -24,10 +21,10 @@ class Text:
         self.center_x = (self.app.win_x - self.rect.width) / 2
         self.center_y = (self.app.win_y - self.rect.height) / 2
 
-    """
-    Add function docstring here.
-    """
     def render_text(self, x, y):
+        """
+        Add function docstring here.
+        """
         self.font.render_to(self.app.win, (x, y),text=self.name,
                             fgcolor=self.color, size=self.size)
 
@@ -36,9 +33,6 @@ class Text:
 Add class docstring here.
 """
 class Button:
-    """
-    Add function docstring here.
-    """
     def __init__(self, app, color, pos, size, text_color, text=''):
         self.app = app
         self.color = color
@@ -49,18 +43,18 @@ class Button:
         self.text_area = self.font.render(f"{text}", True, text_color)
         self.area = pg.Surface((self.size[0], self.size[1]))
 
-    """
-    Add function docstring here.
-    """
     def render(self, win):
+        """
+        Add function docstring here.
+        """
         win.blit(self.area, (self.pos[0], self.pos[1]))
         win.blit(self.text_area, (self.pos[0]+1, self.pos[1]+5))
         self.area.fill((self.color))
 
-    """
-    Add function docstring here.
-    """
     def draw(self, win):
+        """
+        Add function docstring here.
+        """
         self.render(win)
 
 
@@ -68,9 +62,6 @@ class Button:
 Add class docstring here.
 """
 class Menu:
-    """
-    Add function docstring here.
-    """
     def __init__(self, app):
         self.app = app
         self.win = self.app.screen
@@ -93,10 +84,10 @@ class Menu:
                                         i[2] + j), (BTN_W, BTN_H), i[3], i[4]))
             j += 75
 
-    """
-    Add function docstring here.
-    """
     def draw_menu(self):
+        """
+        Add function docstring here.
+        """
         for i in self.btn_list:
             button = getattr(self, i[0])
             button.draw(self.win)
@@ -105,14 +96,14 @@ class Menu:
         self.team_name.render_text(self.title.center_x * 2.1,
                                    self.title.center_y * 2.1)
 
-    """
-    Add function docstring here.
-    """
     def update(self):
+        """
+        Add function docstring here.
+        """
         pg.display.update()
 
-    """
-    Add function docstring here.
-    """
     def draw(self):
+        """
+        Add function docstring here.
+        """
         self.draw_menu()
