@@ -7,10 +7,10 @@ Add module docstring here
 
 from settings import pg, FIELD_W, FIELD_H, TILE_SIZE
 
-"""
-Add class docstring here.
-"""
 class GameBoard:
+    """
+    Add class docstring here.
+    """
     def __init__(self, app):
         self.app = app
         self.win = self.app.screen

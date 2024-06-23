@@ -7,10 +7,10 @@ Add module docstring here
 
 from settings import pg, ft, FONT_PATH, MENU_BG_PATH, BTN_W_LOC, BTN_W, BTN_H
 
-"""
-Add class docstring here.
-"""
 class Text:
+    """
+    Add class docstring here.
+    """
     def __init__(self, app, size, name, color):
         self.app = app
         self.size = size
@@ -29,10 +29,10 @@ class Text:
                             fgcolor=self.color, size=self.size)
 
 
-"""
-Add class docstring here.
-"""
 class Button:
+    """
+    Add class docstring here.
+    """
     def __init__(self, app, color, pos, size, text_color, text=''):
         self.app = app
         self.color = color
@@ -58,10 +58,10 @@ class Button:
         self.render(win)
 
 
-"""
-Add class docstring here.
-"""
 class Menu:
+    """
+    Add class docstring here.
+    """
     def __init__(self, app):
         self.app = app
         self.win = self.app.screen

@@ -42,10 +42,10 @@ while A < n:
     A += 1
 
 
-"""
-Add class docstring here.
-"""
 class App:
+    """
+    Add class docstring here.
+    """
     def __init__(self):
         pg.init()
         pg.display.set_caption('Byte-Builders Trivial Compute')
