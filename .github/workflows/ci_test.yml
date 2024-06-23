@@ -1,4 +1,4 @@
-name: ci_test
+name: Byte-Buddies CI/CD
 
 on: push
 
