@@ -45,13 +45,3 @@ of cleaning, and cleanliness of our repo.
 A closer look at how `pyinstaller` works can be read about here:
 
 <https://pyinstaller.org/en/stable/>
-
-## Template
-
-Within the template folder there is a hello.py file to help detail what
-file contributions should be stuctured like.  To run this file, navigate
-to the corresponding folder in a CLI and enter `make project`.  This will
-run a series of defined commands as well as the hello.py file.  You should
-then see the following output appear in your terminal.
-
-![running](template/running.png)
