@@ -12,8 +12,20 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Print working directory
+      run: pwd
+
+    - name: List directory contents
+      run: ls -la
+
+    - name: List directory contents of subfolders
+      run: find .
+
     - name: Install dependencies
-      run: setup_tc
+      run: make setup_tc
 
     - name: Run check
-      run: release_tc
+      run: make release_tc
