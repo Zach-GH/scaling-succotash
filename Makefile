@@ -17,8 +17,12 @@ release_tc:
 	mv tc.zip release
 
 # run your release
-test_tc:
+test_release_tc:
 	@cd release; ./main
+
+# run linter
+lint_tc:
+	@pylint --rcfile=.pylintrc ./game/trivial_compute/*.py
 
 # clean all un-needed files from your repository
 clean_tc:

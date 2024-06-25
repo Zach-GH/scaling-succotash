@@ -53,6 +53,42 @@ class Game:
         self.scale = pg.transform.scale(self.menu.bg_img, self.app.res)
         self.gameboard = GameBoard(self)
 
+    def check_menu_events(self, pos):
+        """
+        Add function docstring here.
+        """
+        if self.mode == "menu":
+            for i in self.menu.btn_list:
+                button = getattr(self.menu, i[0])
+                if button.area.get_rect(topleft=button.pos).collidepoint(pos):
+                    if i[4] == "Play":
+                        self.mode = "play"
+                    elif i[4] == "Options":
+                        print(f"{i[4]} was clicked!")
+                    elif i[4] == "Mute":
+                        print(f"{i[4]} was clicked!")
+                    elif i[4] == "Achievements":
+                        print(f"{i[4]} was clicked!")
+                    elif i[4] == "Credits":
+                        print(f"{i[4]} was clicked!")
+                    elif i[4] == "Quit":
+                        pg.quit()
+                        sys.exit()
+        elif self.mode == "play":
+            # game interactive event logic
+            pass
+
+    def check_resize(self, event):
+        """
+        Add function docstring here.
+        """
+        if self.mode == "menu":
+            self.scale = pg.transform.scale(self.menu.bg_img,
+                                            (event.w, event.h))
+        elif self.mode == "play":
+            # sizable image background
+            pass
+
 
 class App:
     """
@@ -103,35 +139,10 @@ class App:
                 sys.exit()
             elif event.type == pg.MOUSEBUTTONUP:
                 pos = pg.mouse.get_pos()
-                if self.game.mode == "menu":
-                    for i in self.game.menu.btn_list:
-                        button = getattr(self.game.menu, i[0])
-                        if button.area.get_rect(topleft=
-                                                button.pos).collidepoint(pos):
-                            if i[4] == "Play":
-                                self.game.mode = "play"
-                            elif i[4] == "Options":
-                                print(f"{i[4]} was clicked!")
-                            elif i[4] == "Mute":
-                                print(f"{i[4]} was clicked!")
-                            elif i[4] == "Achievements":
-                                print(f"{i[4]} was clicked!")
-                            elif i[4] == "Credits":
-                                print(f"{i[4]} was clicked!")
-                            elif i[4] == "Quit":
-                                pg.quit()
-                                sys.exit()
-                elif self.game.mode == "play":
-                    # game interactive event logic
-                    pass
+                self.game.check_menu_events(pos)
             elif event.type == pg.VIDEORESIZE:
                 self.screen = pg.display.set_mode((event.w, event.h), res_mode)
-                if self.game.mode == "menu":
-                    self.game.scale = pg.transform.scale(self.game.menu.bg_img,
-                                                    (event.w, event.h))
-                elif self.game.mode == "play":
-                    # sizable image background
-                    pass
+                self.game.check_resize(event)
 
     def run(self):
         """
