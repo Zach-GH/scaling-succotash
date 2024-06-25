@@ -143,5 +143,5 @@ class App:
             self.draw()
 
 if __name__ == '__main__':
-    app = App()
-    app.run()
+    a = App()
+    a.run()

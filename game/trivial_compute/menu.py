@@ -98,7 +98,7 @@ class Menu:
 
         for i in self.btn_list:
             button = getattr(self, i[0])
-            button.draw(self.app.app.screen)    
+            button.draw(self.app.app.screen)
 
     def update(self):
         """
