@@ -18,14 +18,12 @@ class Text:
         self.color = color
         self.font = ft.Font(FONT_PATH, self.size)
         self.area, self.rect = self.font.render(self.name, fgcolor=self.color)
-        self.center_x = (self.app.win_x - self.rect.width) / 2
-        self.center_y = (self.app.win_y - self.rect.height) / 2
 
     def render_text(self, x, y):
         """
         Add function docstring here.
         """
-        self.font.render_to(self.app.win, (x, y),text=self.name,
+        self.font.render_to(self.app.app.app.screen, (x, y),text=self.name,
                             fgcolor=self.color, size=self.size)
 
 
@@ -64,37 +62,43 @@ class Menu:
     """
     def __init__(self, app):
         self.app = app
-        self.win = self.app.screen
-        self.win_x, self.win_y = self.win.get_size()
         self.bg_img = pg.image.load(MENU_BG_PATH)
-        self.title = Text(self, 150, "Trivial Compute", "black")
-        self.team_name = Text(self, 80, "Team Byte-Builders", "black")
-        self.center = (self.app.x / 2)
+        self.text_list = [("t1", 150, "Trivial Compute", "black", "title"),
+                          ("t2", 80, "Team Byte-Builders", "black", "team")]
         self.btn_list = [("b1", (255, 255, 0), 350, (0, 0, 0), 'Play'),
-                    ("b2", (255, 0, 0), 350, (0, 0, 0), 'Options'),
-                    ("b3", (255, 0, 0), 350, (0, 0, 0), 'Mute'),
-                    ("b4", (255, 0, 0), 350, (0, 0, 0), 'Achievements'),
-                    ("b5", (0, 255, 0), 350, (0, 0, 0), 'Credits'),
-                    ("b6", (0, 255, 0), 350, (0, 0, 0), 'Quit')]
+                         ("b2", (255, 0, 0), 350, (0, 0, 0), 'Options'),
+                         ("b3", (255, 0, 0), 350, (0, 0, 0), 'Mute'),
+                         ("b4", (255, 0, 0), 350, (0, 0, 0), 'Achievements'),
+                         ("b5", (0, 255, 0), 350, (0, 0, 0), 'Credits'),
+                         ("b6", (0, 255, 0), 350, (0, 0, 0), 'Quit')]
 
         # Create the buttons on the main menu
         j = 0
         for i in self.btn_list:
-            setattr(self, i[0], Button(self, i[1], ((self.center - BTN_W_LOC),
+            setattr(self, i[0], Button(self, i[1],
+                                       ((self.app.app.x / 2 - BTN_W_LOC),
                                         i[2] + j), (BTN_W, BTN_H), i[3], i[4]))
             j += 75
+
+        for i in self.text_list:
+            setattr(self, i[0], Text(self, i[1], i[2], i[3]))
 
     def draw_menu(self):
         """
         Add function docstring here.
         """
+        for i in self.text_list:
+            text = getattr(self, i[0])
+            if i[4] == "title":
+                text.render_text((self.app.app.x - text.rect.width) / 2, 0)
+            elif i[4] == "team":
+                # Change the magic numbers to something auto-sizable
+                text.render_text((self.app.app.x - text.rect.width) / 2 * 1.9,
+                                 (self.app.app.y - text.rect.height) / 2 * 1.9)
+
         for i in self.btn_list:
             button = getattr(self, i[0])
-            button.draw(self.win)
-
-        self.title.render_text(self.title.center_x, 0)
-        self.team_name.render_text(self.title.center_x * 2.1,
-                                   self.title.center_y * 2.1)
+            button.draw(self.app.app.screen)    
 
     def update(self):
         """

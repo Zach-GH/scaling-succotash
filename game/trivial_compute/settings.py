@@ -6,8 +6,8 @@ Provides settings that dictate parameters for different types of screens,
 values, resources, events, etc. that are needed by the game during runtime.
 """
 
-import pygame as pg # type: ignore
-import pygame.freetype as ft # type: ignore
+import pygame as pg # type: ignore # pylint: disable=unused-import
+import pygame.freetype as ft # type: ignore # pylint: disable=unused-import
 
 FPS = 60
 FIELD_COLOR = (255, 255, 255)

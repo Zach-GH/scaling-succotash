@@ -42,6 +42,18 @@ while A < n:
     A += 1
 
 
+class Game:
+    """
+    Add class docstring here.
+    """
+    def __init__(self, app):
+        self.app = app
+        self.mode = "menu"
+        self.menu = Menu(self)
+        self.scale = pg.transform.scale(self.menu.bg_img, self.app.res)
+        self.gameboard = GameBoard(self)
+
+
 class App:
     """
     Add class docstring here.
@@ -52,35 +64,32 @@ class App:
         self.screen = pg.display.set_mode(resolution, res_mode)
         self.res = (self.x, self.y) = self.screen.get_size()
         self.clock = pg.time.Clock()
-        self.menu = Menu(self)
-        self.scale = pg.transform.scale(self.menu.bg_img, self.res)
-        self.gameboard = GameBoard(self)
-        self.mode = "menu"
+        self.game = Game(self)
 
     def update(self):
         """
         Add function docstring here.
         """
-        if self.mode == "menu":
-            self.menu.update()
-        elif self.mode == "play":
-            self.gameboard.update()
+        if self.game.mode == "menu":
+            self.game.menu.update()
+        elif self.game.mode == "play":
+            self.game.gameboard.update()
         self.clock.tick(FPS)
 
     def draw(self):
         """
         Add function docstring here.
         """
-        if self.mode == "menu":
+        if self.game.mode == "menu":
             self.screen.fill(color=FIELD_COLOR)
-            self.menu.bg_img = self.scale
+            self.game.menu.bg_img = self.game.scale
             # Menu background goes here image spans entire screen.
             # self.screen.blit(self.menu.bg_img, (0, 0))
-            self.menu.draw()
+            self.game.menu.draw()
             pg.display.flip()
-        elif self.mode == "play":
+        elif self.game.mode == "play":
             self.screen.fill(color=FIELD_COLOR)
-            self.gameboard.draw()
+            self.game.gameboard.draw()
             pg.display.flip()
 
     def check_events(self):
@@ -88,19 +97,19 @@ class App:
         Add function docstring here.
         """
         for event in pg.event.get():
-            if (event.type == pg.QUIT
-                or (event.type == pg.KEYDOWN and event.key == pg.K_ESCAPE)):
+            if (event.type == pg.QUIT or (event.type == pg.KEYDOWN
+                                          and event.key == pg.K_ESCAPE)):
                 pg.quit()
                 sys.exit()
             elif event.type == pg.MOUSEBUTTONUP:
                 pos = pg.mouse.get_pos()
-                if self.mode == "menu":
-                    for i in self.menu.btn_list:
-                        button = getattr(self.menu, i[0])
+                if self.game.mode == "menu":
+                    for i in self.game.menu.btn_list:
+                        button = getattr(self.game.menu, i[0])
                         if button.area.get_rect(topleft=
                                                 button.pos).collidepoint(pos):
                             if i[4] == "Play":
-                                self.mode = "play"
+                                self.game.mode = "play"
                             elif i[4] == "Options":
                                 print(f"{i[4]} was clicked!")
                             elif i[4] == "Mute":
@@ -112,15 +121,15 @@ class App:
                             elif i[4] == "Quit":
                                 pg.quit()
                                 sys.exit()
-                elif self.mode == "play":
+                elif self.game.mode == "play":
                     # game interactive event logic
                     pass
             elif event.type == pg.VIDEORESIZE:
                 self.screen = pg.display.set_mode((event.w, event.h), res_mode)
-                if self.mode == "menu":
-                    self.scale = pg.transform.scale(self.menu.bg_img,
+                if self.game.mode == "menu":
+                    self.game.scale = pg.transform.scale(self.game.menu.bg_img,
                                                     (event.w, event.h))
-                elif self.mode == "play":
+                elif self.game.mode == "play":
                     # sizable image background
                     pass
 
